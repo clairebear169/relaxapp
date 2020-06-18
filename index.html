@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Relax | Breathing App</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #193272;
+        color: #c68596;
+        font-family: "Amatic SC", serif;
+        min-height: 100vh;
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: 100px 5fr 2fr 1fr;
+        align-items: center;
+        margin: 0;
+      }
+
+      .amsterdam {
+        background: url(Amsterdam.jpg) no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      .london {
+        background: url(London.jpg) no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      .newyork {
+        background: url(NYC.jpg) no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      .paris {
+        background: url(Paris.png) no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      .tokyo {
+        background: url(Tokyo.png) no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      h1 {
+        font-size: 40px;
+        text-align: center;
+        font-weight: bolder;
+        padding: 5px 10px;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 260px;
+        width: 260px;
+        margin: auto;
+        position: relative;
+        transform: scale(1);
+      }
+
+      .background-circle {
+        background: conic-gradient(#0c021c, #3d2a6c, #6f3067, #0c021c);
+        height: 300px;
+        width: 300px;
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        z-index: -2;
+        border: 1px solid #c68596;
+        border-radius: 50%;
+      }
+
+      .circle {
+        background: radial-gradient(#171b4b 30%, #2c0f33);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 50%;
+      }
+
+      .pointer-container {
+        position: absolute;
+        top: -50px;
+        left: 120px;
+        width: 20px;
+        height: 180px;
+        animation: rotate 12.5s linear forwards infinite;
+        transform-origin: bottom center;
+      }
+
+      .pointer {
+        background-color: #c68596;
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        display: block;
+      }
+
+      #text {
+        font-size: 30px;
+      }
+
+      .container.grow {
+        animation: grow 5s linear forwards;
+      }
+
+      .container.shrink {
+        animation: shrink 5s linear forwards;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes grow {
+        from {
+          transform: scale(1);
+        }
+
+        to {
+          transform: scale(1.2);
+        }
+      }
+
+      @keyframes shrink {
+        from {
+          transform: scale(1.2);
+        }
+
+        to {
+          transform: scale(1);
+        }
+      }
+
+      button {
+        display: block;
+        margin: 70px auto 20px;
+        padding: 8px 15px;
+        background: radial-gradient(#171b4b 30%, #2c0f33);
+        color: #c68596;
+        border: 1px solid #c68596;
+        border-radius: 15px;
+        font-family: "Amatic SC", serif;
+        font-size: 25px;
+        box-shadow: -3px 3px 4px #2c0f33;
+        transition: all 300ms ease-in-out;
+      }
+
+      button:hover {
+        background: radial-gradient(#c68595 10%, #2c0f33);
+        color: #0c021c;
+        font-weight: bolder;
+        border: 1px solid #0c021c;
+        cursor: pointer;
+      }
+
+      p {
+        background-color: rgba(23, 27, 75, 0.6);
+        border-radius: 4px;
+        padding: 1px 2px;
+        text-align: center;
+        display: block;
+        margin: 10px auto 5px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #c68596;
+      }
+
+      @media only screen and (max-width: 500px) {
+        body {
+          grid-template-rows: 80px 4fr 2fr 1fr;
+        }
+        h1 {
+          font-size: 30px;
+        }
+
+        .container {
+          height: 200px;
+          width: 200px;
+        }
+
+        .background-circle {
+          height: 230px;
+          width: 230px;
+          top: -15px;
+          left: -15px;
+        }
+
+        .pointer-container {
+          height: 145px;
+          top: -45px;
+          left: 90px;
+        }
+
+        #text {
+          font-size: 20px;
+        }
+
+        button {
+          font-size: 20px;
+          display: block;
+          margin: 20 auto;
+        }
+      }
+    </style>
+  </head>
+  <body class="amsterdam">
+    <h1>
+      Relax
+    </h1>
+    <div class="container">
+      <div class="circle"></div>
+
+      <p id="text"></p>
+
+      <div class="pointer-container">
+        <div class="pointer"></div>
+      </div>
+
+      <div class="background-circle"></div>
+    </div>
+    <button>
+      Change city
+    </button>
+    <p>
+      Coded by Claire Sharpe👩🏻 City art by
+      <a href="http://startupmilk.com" target="_blank">startupmilk</a>
+    </p>
+    <script>
+      const container = document.querySelector(".container");
+      const text = document.querySelector("#text");
+
+      const totalTime = 12500;
+      const breatheTime = (totalTime / 5) * 2;
+      const holdTime = totalTime / 5;
+
+      function breatheAnimation() {
+        text.innerHTML = "Breathe in...";
+        container.className = "container grow";
+
+        setTimeout(() => {
+          text.innerText = "Hold...";
+
+          setTimeout(() => {
+            text.innerText = "Breathe out...";
+            container.className = "container shrink";
+          }, holdTime);
+        }, breatheTime);
+      }
+
+      breatheAnimation();
+      setInterval(breatheAnimation, totalTime);
+
+      const heading = document.querySelector("h1");
+
+      function changeHeading() {
+        heading.innerHTML = "Relax";
+
+        setTimeout(() => {
+          heading.innerHTML = "Sit comfortably";
+
+          setTimeout(() => {
+            heading.innerHTML =
+              "Scan down your body, noticing how each part of you feels in this moment";
+
+            setTimeout(() => {
+              heading.innerHTML = "Focus on your breath";
+
+              setTimeout(() => {
+                heading.innerHTML =
+                  "If your mind wanders, gently bring it back to your breath";
+              }, totalTime * 2);
+            }, totalTime * 2);
+          }, totalTime * 2);
+        }, totalTime * 2);
+      }
+
+      changeHeading();
+      setInterval(changeHeading, 125000);
+
+      function changeCity() {
+        const city = document.querySelector("body");
+        if (city.className === "amsterdam") {
+          city.className = "london";
+        } else {
+          if (city.className === "london") {
+            city.className = "newyork";
+          } else {
+            if (city.className === "newyork") {
+              city.className = "paris";
+            } else {
+              if (city.className === "paris") {
+                city.className = "tokyo";
+              } else {
+                if (city.className === "tokyo") {
+                  city.className = "amsterdam";
+                }
+              }
+            }
+          }
+        }
+      }
+      const button = document.querySelector("button");
+      button.addEventListener("click", changeCity);
+    </script>
+  </body>
+</html>
